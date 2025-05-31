@@ -5,7 +5,7 @@
   - name: disable default nodejs
     ansible.builtin.command: dnf module disable nodejs -y
 
-  - name: enable default nginx
+  - name: enable default nodejs
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
   - name: Installing  nodejs
@@ -25,10 +25,10 @@
       system: true
       home : /app
  
-  - name: downloading the catalgoue code
+  - name: downloading the catalogue code
     ansible.builtin.get_url:
       url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
-      dest: /tmp/catalgoue.zip
+      dest: /tmp/catalogue.zip
 
   - name: unzipping the code
     ansible.builtin.unarchive:
@@ -42,8 +42,8 @@
   
   - name: copy catalogue service to system directory
     ansible.builtin.copy:
-      src: catalgoue.service
-      dest: /etc/systemd/system/catalgoue.service
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
 
   - name: daemon-reload
     ansible.builtin.systemd_service:
@@ -69,7 +69,7 @@
     ansible.builtin.command: mongosh --host mongodb.anjuma.store --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
     register: catalogue_output
 
-  - name: print catalgoue output
+  - name: print catalogue output
     ansible.builtin.debug:
       msg: "{{ catalogue_output }}"
 
