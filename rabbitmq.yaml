@@ -12,9 +12,9 @@
       name: rabbitmq-server
       state: installed
   
-  - name: enable and start shipping
+  - name: enable and start rabbitmq
     ansible.builtin.service:
-      name: shipping
+      name: rabbitmq
       state: started
       enabled: yes
 
